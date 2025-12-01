@@ -1,16 +1,12 @@
 <!-- Unit 5 Project
 Requirements
 [  ] <div> and <span>
-[  ] border:, margin:, and padding: 
+[  ] border:, margin:, and padding:
 [  ] Three Images
 
-Select TWO Additional Features to Add  
-[ no ] Feature 1 - Flexbox
-[ no ] Feature 2 - Flip Card
-[ no ] Feature 3 - Animation
-[ no ] Feature 4 - Linear Gradient
-[ no ] Feature 5 - Use a .Gif
-[ no ] Feature 6 - Unique Border Styles
+Select TWO Additional Features to Add
+[*] Feature 1 - Flexbox
+[*] Feature 3 - Animation (Scale Up hover + typewriter heading)
 -->
 
 
@@ -18,15 +14,186 @@ Select TWO Additional Features to Add
 <html>
 
 <head>
-  <title>Unit 5 Project</title>
+  <title>Abu Dhabi GP — Dec 7 | LaG Events</title>
   <meta charset="utf-8">
   <style>
+    /* Basic Layout */
+    :root{
+      --accent:#a34c9b;
+      --bg:#f6f0fb;
+      --card:#ffffff;
+      --muted:#666;
+    }
+    *{box-sizing: border-box;}
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #f7eefc 0%, #fff 100%);
+      color:#222;
+      padding: 20px 10px;
+    }
 
+    /* Header hero (using flexbox) */
+    header.hero{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1000px;
+      margin: 0 auto 20px auto;
+      padding: 18px 24px;
+      border: 3px double var(--accent);
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(163,76,155,0.06), rgba(163,76,155,0.02));
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo img{width:60px;height:60px;border-radius:10px;}
+    .site-title{
+      font-size:20px;
+      letter-spacing: 0.5px;
+      display:block;
+    }
+    /* Typewriter heading animation */
+    .event-heading{
+      font-weight:700;
+      font-size:26px;
+      color:var(--accent);
+      overflow: hidden; /* for typewriter effect */
+      border-right: .12em solid rgba(0,0,0,0.2);
+      white-space: nowrap;
+      width: 20ch;
+      animation: type 3s steps(20), blink 650ms infinite step-end alternate;
+    }
+    @keyframes type{from{width:0;} to{width:20ch;}}
+    @keyframes blink{50%{border-color:transparent;}}
+
+    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:12px;}
+    nav a{color:var(--accent);text-decoration:none;font-weight:600}
+
+    /* Events grid - flexbox */
+    .events{
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+      max-width:1000px;
+      margin: 16px auto;
+      justify-content:center;
+    }
+    .card{
+      width:300px;
+      background:var(--card);
+      border: 6px groove rgba(163,76,155,0.12); /* unique border style */
+      border-radius:12px;
+      padding:14px;
+      margin:0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+    /* Animation: scale up on hover */
+    .card:hover{transform: translateY(-8px) scale(1.02); box-shadow:0 20px 35px rgba(0,0,0,0.12)}
+
+    .card img{width:100%;height:160px;border-radius:8px;object-fit:cover;border: 4px solid rgba(163,76,155,0.08);}
+    .card h3{margin:0;color:var(--accent);}
+    .card .meta{color:var(--muted);font-size:14px;margin-bottom:4px}
+    .card p{margin:0;color:#333}
+
+    .card .rsvp{margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+    .btn{
+      background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:18px;font-weight:700;cursor:pointer;box-shadow:0 4px 10px rgba(163,76,155,0.12);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .btn:hover{transform:scale(1.04);} /* small animation for CTA */
+
+    footer{max-width:1000px;margin:30px auto 0 auto;text-align:center;color:#555;padding:10px}
+
+    /* Responsive */
+    @media (max-width:640px){
+      .events{padding:6px}
+      .card{width:100%}
+      .event-heading{font-size:20px;}
+    }
   </style>
 </head>
 <body>
 
- 
+  <header class="hero">
+    <div class="logo">
+      <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=413c44c8cf597b401a22a2b0a97f3a7b" alt="LaG logo">
+      <div>
+        <span class="site-title">LaG Events</span>
+        <span class="event-heading">Abu Dhabi GP — Dec 7</span>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="events" id="events" aria-labelledby="events-heading">
+      <h2 id="events-heading" style="width:100%;text-align:center;margin:6px 0 10px 0;color:var(--accent);font-size:18px;">Race Weekend Highlights</h2>
+      <!-- Card 1 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=9cde8b2a0b8b58917e2d1dfc2a4b48f1" alt="Formula One car">
+        <h3>Abu Dhabi Grand Prix</h3>
+        <span class="meta">Dec 7 | 7:00pm • Yas Marina Circuit, Abu Dhabi</span>
+        <p>See the world's fastest drivers race under the lights — a thrilling season finale.</p>
+        <div class="rsvp">
+          <button class="btn">RSVP</button>
+          <span style="color:var(--muted);">Tickets required • All Ages</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Max Verstappen (Driver Spotlight) -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8c1c7d3df6e0d4f0819b3c3a1aafa5f1" alt="Driver portrait">
+        <h3>Max Verstappen — Driver Spotlight</h3>
+        <span class="meta">Red Bull Racing • World Champion</span>
+        <p>The reigning champion heads into Yas Marina looking to cap another incredible season with a win.</p>
+        <div class="rsvp">
+          <button class="btn">Follow Team</button>
+          <span style="color:var(--muted);">#33 • Fan Favorite</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Track – Yas Marina Circuit -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1547700058-19146c0fd6ad?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3c1b4040e5a4891bbf7cc6bd2a2d6c6f" alt="Yas Marina Circuit at night">
+        <h3>Yas Marina Circuit — Race Conditions</h3>
+        <span class="meta">Dec 7 | Evening Race • Trackwalk & Fan Zones</span>
+        <p>Expect dazzling lights and high-speed drama around the marina — perfect for evening racing under the lights.</p>
+        <div class="rsvp">
+          <button class="btn">Buy Tickets</button>
+          <span style="color:var(--muted);">Book early • Transport recommended</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" style="max-width:1000px;margin:0 auto;">
+      <div style="padding:18px;border:2px dashed rgba(163,76,155,0.12);margin-bottom:20px;border-radius:8px;">
+        <p style="margin:0 0 8px 0;"><span style="font-weight:700">Plan to attend the Abu Dhabi GP</span> — Choose a session and bring friends. RSVP or buy tickets below.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn">RSVP - Race Day</button>
+          <button class="btn" style="background:#444;">RSVP - Qualifying</button>
+          <button class="btn" style="background:#8a8a8a;">RSVP - Fan Zone</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>LaGuardia Events • <span>Visit the student portal for more information</span></p>
+  </footer>
 
 </body>
 </html>
